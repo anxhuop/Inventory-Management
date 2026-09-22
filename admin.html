@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — Inventory Management</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="owner-admin.css" />
+    <link rel="stylesheet" href="stock-value.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="side admin-side">
+        <div class="brand">
+          <span class="logo">▦</span> Inventory Management
+        </div>
+        <p>ADMIN</p>
+        <button class="nav admin-nav active" data-admin-view="adminHome">
+          Dashboard</button
+        ><button class="nav admin-nav" data-admin-view="salesPage">
+          Sales Revenue</button
+        ><button class="nav admin-nav" data-admin-view="profitPage">
+          Gross Profit</button
+        ><button class="nav admin-nav" data-admin-view="inventoryPage">
+          Inventory</button
+        ><button class="nav admin-nav" data-admin-view="stockValuePage">
+          Stock Value
+        </button>
+        <div class="footer">Secure business dashboard</div>
+      </aside>
+      <main class="main">
+        <div class="top">
+          <div>
+            <h1 id="adminTitle">Admin Dashboard</h1>
+            <span id="adminSubtitle">Business performance at a glance.</span>
+          </div>
+        </div>
+        <section id="locked" class="admin-lock">
+          <span class="lock-icon">🔒</span>
+          <h2>Secure admin access</h2>
+          <p>Sales revenue, cost prices, and profit margins are restricted.</p>
+          <form id="loginForm" class="form">
+            <label class="full"
+              >Admin PIN<input
+                required
+                name="pin"
+                type="password"
+                inputmode="numeric"
+                placeholder="Enter PIN"
+            /></label>
+            <p id="loginError" class="login-error full"></p>
+            <div class="modalfoot full">
+              <button class="primary">Unlock dashboard</button>
+            </div>
+          </form>
+        </section>
+        <div id="adminContent" class="hidden">
+          <section class="admin-view active" id="adminHome">
+            <div class="admin-summary">
+              <div class="summary-icon">▦</div>
+              <div>
+                <h2>Business overview</h2>
+                <p>
+                  A short view of sales, profit, and current stock. Select a
+                  menu item for full details.
+                </p>
+              </div>
+            </div>
+            <div class="cards admin-metrics">
+              <button class="card metric-button" data-admin-go="salesPage">
+                <small>Monthly sales</small><strong id="salesRevenue">₹0</strong
+                ><span>View sales report →</span></button
+              ><button class="card metric-button" data-admin-go="profitPage">
+                <small>Gross profit</small><strong id="grossProfit">₹0</strong
+                ><span id="margin">0% profit margin</span></button
+              ><button class="card metric-button" data-admin-go="inventoryPage">
+                <small>Inventory</small
+                ><strong id="inventorySummary">0 / 0</strong
+                ><span>Sold this month / left in stock</span></button
+              ><button
+                class="card metric-button"
+                data-admin-go="stockValuePage"
+              >
+                <small>Stock value</small><strong id="stockValueHome">₹0</strong
+                ><span>Investment and remaining value</span>
+              </button>
+            </div>
+          </section>
+          <section class="admin-view" id="salesPage">
+            <div class="report-hero blue-hero">
+              <small>SALES REVENUE</small
+              ><strong id="salesRevenueReport">₹0</strong
+              ><span>Estimated monthly sales revenue</span>
+            </div>
+            <div class="cards sales-periods">
+              <div class="card">
+                <small>Today's sales</small><strong id="dailySales">₹0</strong
+                ><span class="up">Average daily sales</span>
+              </div>
+              <div class="card">
+                <small>This month's sales</small
+                ><strong id="monthlySales">₹0</strong
+                ><span class="up">Estimated monthly sales</span>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panelhead">
+                <h2>Daily sales trend</h2>
+                <span class="category">Sales for the last 7 days</span>
+              </div>
+              <div class="chart daily-chart">
+                <div class="bar" style="height: 43%"><i>Mon</i></div>
+                <div class="bar" style="height: 62%"><i>Tue</i></div>
+                <div class="bar" style="height: 54%"><i>Wed</i></div>
+                <div class="bar" style="height: 82%"><i>Thu</i></div>
+                <div class="bar" style="height: 67%"><i>Fri</i></div>
+                <div class="bar" style="height: 92%"><i>Sat</i></div>
+                <div class="bar" style="height: 75%"><i>Sun</i></div>
+              </div>
+            </div>
+          </section>
+          <section class="admin-view" id="profitPage">
+            <div class="report-hero green-hero">
+              <small>GROSS PROFIT</small
+              ><strong id="grossProfitReport">₹0</strong
+              ><span id="marginReport">0% profit margin</span>
+            </div>
+            <div class="panel">
+              <div class="panelhead">
+                <h2>Profit by product</h2>
+                <span class="category">Selling price minus cost price</span>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Cost</th>
+                    <th>Sale price</th>
+                    <th>Margin</th>
+                  </tr>
+                </thead>
+                <tbody id="profitBody"></tbody>
+              </table>
+            </div>
+          </section>
+          <section class="admin-view" id="inventoryPage">
+            <div class="inventory-tabs">
+              <button
+                class="inventory-tab active"
+                data-inventory-tab="soldReport"
+              >
+                Sold</button
+              ><button class="inventory-tab" data-inventory-tab="leftReport">
+                Left
+              </button>
+            </div>
+            <div class="inventory-report active" id="soldReport">
+              <div class="report-hero purple-hero">
+                <small>SOLD</small><strong id="soldUnits">0</strong
+                ><span>Estimated units sold this month</span>
+              </div>
+              <div class="panel">
+                <div class="panelhead">
+                  <h2>Products sold</h2>
+                  <span class="category"
+                    >Estimated quantity sold for each product.</span
+                  >
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Supplier</th>
+                      <th>Quantity sold</th>
+                      <th>Sales amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="soldBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="inventory-report" id="leftReport">
+              <div class="report-hero amber-hero">
+                <small>LEFT</small><strong id="inventoryLeftReport">0</strong
+                ><span>Units currently available in stock</span>
+              </div>
+              <div class="panel">
+                <div class="panelhead">
+                  <h2>Current stock by product</h2>
+                  <span class="category"
+                    >Use this list to check what needs refilling.</span
+                  >
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Supplier</th>
+                      <th>Stock left</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stockBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+          <section class="admin-view" id="stockValuePage">
+            <div class="inventory-tabs">
+              <button
+                class="inventory-tab active"
+                data-stock-tab="investmentReport"
+              >
+                Investment</button
+              ><button class="inventory-tab" data-stock-tab="remainingReport">
+                Remaining Value
+              </button>
+            </div>
+            <div class="stock-report active" id="investmentReport">
+              <div class="report-hero blue-hero">
+                <small>STOCK INVESTMENT</small
+                ><strong id="stockValue">₹0</strong
+                ><span>Current inventory value at cost price</span>
+              </div>
+            </div>
+            <div class="stock-report" id="remainingReport">
+              <div class="report-hero green-hero">
+                <small>REMAINING STOCK VALUE</small
+                ><strong id="remainingAmount">₹0</strong
+                ><span>Potential sales value of all current stock</span>
+              </div>
+              <div class="panel">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Stock left</th>
+                      <th>Selling price</th>
+                      <th>Stock value</th>
+                    </tr>
+                  </thead>
+                  <tbody id="remainingBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script>
+      if (location.protocol === "file:")
+        location.replace("http://localhost:3000/admin.html");
+    </script>
+    <script src="admin.js"></script>
+  </body>
+</html>

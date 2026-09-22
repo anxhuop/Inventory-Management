@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inventory Management — Staff</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="owner-admin.css" />
+    <link rel="stylesheet" href="staff.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="side">
+        <div class="brand">
+          <span class="logo">▦</span> Inventory Management
+        </div>
+        <p>STAFF OPERATIONS</p>
+        <button class="nav active" data-view="dashboard">Dashboard</button
+        ><button class="nav" data-view="inventory">
+          Inventory <b id="lowBadge">0</b></button
+        ><button class="nav" data-view="reorder">
+          Refill &amp; Orders <b id="orderBadge">0</b></button
+        ><button class="nav" data-view="suppliers">Suppliers</button>
+        <p>ACCOUNT</p>
+        <button class="nav" data-view="settings">Settings</button>
+        <div class="footer">Staff portal</div>
+      </aside>
+      <main class="main">
+        <div class="top">
+          <div>
+            <h1 id="title">Sales &amp; Billing</h1>
+            <span id="subtitle"
+              >Add multiple products and generate one customer bill.</span
+            >
+          </div>
+          <button class="primary" id="addBtn">+ Add product</button>
+        </div>
+        <section class="view active" id="dashboard">
+          <div class="sales-workspace">
+            <div class="sale-panel panel">
+              <div class="sale-heading">
+                <div>
+                  <span class="eyebrow">NEW SALE</span>
+                  <h2>Create customer bill</h2>
+                  <p>
+                    Add every product to the bill before completing the sale.
+                  </p>
+                </div>
+                <span class="cash-icon">₹</span>
+              </div>
+              <div class="sale-form">
+                <label class="sale-product-label"
+                  >Product<select id="saleProduct">
+                    <option value="">Select a product</option>
+                  </select></label
+                >
+                <div class="product-info">
+                  <div>
+                    <small>Selling price</small
+                    ><strong id="salePrice">₹0</strong>
+                  </div>
+                  <div>
+                    <small>Available stock</small
+                    ><strong id="saleAvailable">—</strong>
+                  </div>
+                </div>
+                <label
+                  >Quantity<input
+                    id="saleQuantity"
+                    type="number"
+                    min="1"
+                    value="1" /></label
+                ><button
+                  class="secondary add-item-button"
+                  id="addToBill"
+                  type="button"
+                >
+                  + Add to bill
+                </button>
+                <p class="sale-error" id="saleError"></p>
+              </div>
+              <div class="cart-box">
+                <div class="panelhead">
+                  <div>
+                    <h2>Current bill</h2>
+                    <span class="category" id="cartCount"
+                      >No products added</span
+                    >
+                  </div>
+                  <button class="link" id="clearCart" type="button">
+                    Clear
+                  </button>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Qty</th>
+                      <th>Amount</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="cartBody"></tbody>
+                </table>
+                <div class="sale-total">
+                  <span>Total amount</span><strong id="saleTotal">₹0</strong
+                  ><small>All prices use the selling price.</small>
+                </div>
+                <button
+                  class="primary generate-button"
+                  id="generateBill"
+                  type="button"
+                >
+                  Generate bill &amp; record sale
+                </button>
+              </div>
+            </div>
+            <section class="panel sale-history">
+              <div class="panelhead">
+                <div>
+                  <h2>Sales history</h2>
+                  <span class="category">Latest completed bills</span>
+                </div>
+                <button class="link" id="refreshSales">Refresh</button>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Bill</th>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody id="salesHistoryBody"></tbody>
+              </table>
+            </section>
+          </div>
+        </section>
+        <section class="view" id="inventory">
+          <div class="panel">
+            <div class="filter">
+              <input id="search" placeholder="Search products…" /><button
+                class="primary"
+                id="addBtn2"
+              >
+                + Add product
+              </button>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Supplier</th>
+                  <th>Cost</th>
+                  <th>Selling price</th>
+                  <th>Stock</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="view" id="reorder">
+          <div class="panel">
+            <div class="panelhead">
+              <div>
+                <h2>Refill &amp; purchase order list</h2>
+                <span class="category"
+                  >Products at or below their refill level.</span
+                >
+              </div>
+              <button class="primary" id="printOrder">Print refill list</button>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Supplier</th>
+                  <th>Remaining</th>
+                  <th>Refill at</th>
+                  <th>Suggested order</th>
+                </tr>
+              </thead>
+              <tbody id="reorderBody"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="view" id="suppliers">
+          <div class="panel">
+            <h2>Supplier directory</h2>
+            <p class="category">Local Wholesale Market · +91 98765 43210</p>
+            <p class="category">Fresh Foods Distributors · +91 99887 12345</p>
+          </div>
+        </section>
+        <section class="view" id="settings">
+          <div class="panel">
+            <h2>Staff settings</h2>
+            <p class="category">
+              This page is for stock and refill operations only.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="modal" id="modal">
+      <div class="modalbox">
+        <h2>Add a product</h2>
+        <form id="productForm" class="form">
+          <label>Product name<input required name="name" /></label
+          ><label>Category<input required name="category" /></label
+          ><label>Supplier<input required name="supplier" /></label
+          ><label
+            >Quantity in stock<input
+              required
+              type="number"
+              min="0"
+              name="stock"
+              value="0" /></label
+          ><label
+            >Cost price (₹)<input
+              required
+              type="number"
+              min="0"
+              name="cost"
+              value="0" /></label
+          ><label
+            >Selling price (₹)<input
+              required
+              type="number"
+              min="0"
+              name="price"
+              value="0" /></label
+          ><label class="full"
+            >Refill alert at<input
+              required
+              type="number"
+              min="0"
+              name="threshold"
+              value="5"
+          /></label>
+          <div class="modalfoot full">
+            <button type="button" class="cancel" id="cancel">Cancel</button
+            ><button class="primary">Save product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="billModal">
+      <article class="bill">
+        <div class="bill-head">
+          <div>
+            <span class="bill-brand">INVENTORY MANAGEMENT</span>
+            <h2>Sales Bill</h2>
+          </div>
+          <button class="cancel" id="closeBill">Close</button>
+        </div>
+        <div class="bill-meta">
+          <span id="billNumber"></span><span id="billDate"></span>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Rate</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="billBody"></tbody>
+        </table>
+        <div class="bill-total">
+          <span>Total payable</span><strong id="billTotal">₹0</strong>
+        </div>
+        <div class="modalfoot">
+          <button class="primary" id="printBill">Print bill</button>
+        </div>
+      </article>
+    </div>
+    <script>
+      if (location.protocol === "file:")
+        location.replace("http://localhost:3000/staff.html");
+    </script>
+    <script src="staff.js"></script>
+  </body>
+</html>

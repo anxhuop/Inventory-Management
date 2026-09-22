@@ -1,0 +1,248 @@
+#addBtn {
+  visibility: hidden;
+}
+.sales-workspace {
+  display: grid;
+  grid-template-columns: minmax(430px, 1fr) minmax(0, 1.2fr);
+  gap: 22px;
+  align-items: start;
+}
+.sale-panel {
+  padding: 28px;
+  border-top: 4px solid #2563eb;
+  background: linear-gradient(145deg, #fff, #f6f9ff);
+}
+.sale-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+.eyebrow,
+.bill-brand {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #2563eb;
+  font-weight: 800;
+}
+.sale-heading h2 {
+  font-size: 24px;
+  margin: 6px 0;
+}
+.sale-heading p {
+  color: #687386;
+  margin: 0;
+}
+.cash-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: #eaf1ff;
+  color: #2563eb;
+  font-size: 24px;
+  font-weight: 800;
+}
+.sale-form {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+}
+.sale-form label {
+  display: grid;
+  gap: 6px;
+  color: #687386;
+  font-size: 12px;
+  font-weight: 750;
+}
+.sale-product-label {
+  grid-column: 1/-1;
+}
+.sale-form select,
+.sale-form input {
+  width: 100%;
+  border: 1px solid #d8dee9;
+  border-radius: 8px;
+  padding: 11px;
+  background: #fff;
+  font: inherit;
+  outline: none;
+}
+.product-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.product-info div {
+  background: #fff;
+  border: 1px solid #e8ebf1;
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+.product-info small {
+  display: block;
+  color: #687386;
+  font-size: 11px;
+  font-weight: 700;
+}
+.product-info strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 17px;
+}
+.secondary {
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #2563eb;
+  font-weight: 750;
+  padding: 10px;
+}
+.sale-error {
+  grid-column: 1/-1;
+  color: #dc2626;
+  margin: 0;
+  font-size: 12px;
+}
+.cart-box {
+  margin-top: 24px;
+  border-top: 1px solid #dbe4f5;
+  padding-top: 20px;
+}
+.cart-box .panelhead {
+  margin-bottom: 12px;
+}
+.sale-total {
+  background: #123160;
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-top: 16px;
+}
+.sale-total span {
+  font-weight: 700;
+}
+.sale-total strong {
+  font-size: 27px;
+}
+.sale-total small {
+  grid-column: 1/-1;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+.generate-button,
+.record-sale-button {
+  display: inline-block;
+  width: calc(50% - 5px);
+  padding: 13px;
+  margin-top: 14px;
+  vertical-align: top;
+}
+.record-sale-button {
+  margin-left: 6px;
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  box-shadow: none;
+}
+.record-sale-button:hover {
+  background: #eff6ff;
+}
+.generate-button {
+  font-size: 0;
+}
+.generate-button:after {
+  content: "Generate bill";
+  font-size: 14px;
+}
+.sale-history {
+  padding: 24px;
+}
+.bill {
+  width: min(540px, 100%);
+  background: #fff;
+  border-radius: 13px;
+  padding: 24px;
+  box-shadow: 0 20px 55px #101b3560;
+}
+.bill-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #e8ebf1;
+  padding-bottom: 16px;
+}
+.bill-head h2 {
+  margin: 5px 0 0;
+}
+.bill-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #687386;
+  font-size: 12px;
+  padding: 15px 0;
+}
+.bill-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 8px 0;
+  font-size: 16px;
+}
+.bill-total strong {
+  font-size: 25px;
+}
+@media (max-width: 960px) {
+  .sales-workspace {
+    grid-template-columns: 1fr;
+  }
+  .sale-history {
+    overflow-x: auto;
+  }
+}
+@media (max-width: 500px) {
+  .sale-panel {
+    padding: 18px;
+  }
+  .sale-form {
+    grid-template-columns: 1fr;
+  }
+  .product-info {
+    grid-column: 1/-1;
+  }
+  .generate-button,
+  .record-sale-button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media print {
+  body {
+    background: #fff;
+  }
+  .side,
+  .top,
+  .main,
+  .modal:not(#billModal) {
+    display: none !important;
+  }
+  #billModal.modal {
+    display: grid !important;
+    position: static;
+    background: #fff;
+    padding: 0;
+  }
+  .bill {
+    box-shadow: none;
+    width: 100%;
+  }
+  .bill .cancel,
+  .bill .modalfoot {
+    display: none !important;
+  }
+}
